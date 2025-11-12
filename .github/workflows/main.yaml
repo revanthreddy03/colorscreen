@@ -48,6 +48,11 @@ jobs:
             key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
             source: "workflow_scripts/deploy.sh"
             target: "~/workflow_scripts/"
+        - name: test
+          run: | 
+            ls
+            ls -l
+            ls ~/workflow_scripts
 
         - 
             name: Execute remote SSH commands using password
