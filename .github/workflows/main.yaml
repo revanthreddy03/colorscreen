@@ -52,7 +52,22 @@ jobs:
           run: | 
             ls
             ls -l
-            ls ~/workflow_scripts
+
+        - 
+            name: Execute remote SSH commands using password
+            uses: appleboy/ssh-action@v1
+            env:
+                SHA: ${{ github.sha }}
+            with:
+                envs: SHA
+                host: ${{ secrets.COLORSCREEN_HOST }}
+                username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
+                key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
+                port: 22
+                script: |
+                    ls
+                    ls -l
+                    ls ~/workflow_scripts/
 
         - 
             name: Execute remote SSH commands using password
