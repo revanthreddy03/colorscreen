@@ -53,7 +53,7 @@ jobs:
                     docker pull "revanthreddydatla/colorscreen:$SHA"
                     docker stop colorscreen 2>/dev/null || true
                     docker rm colorscreen 2>/dev/null || true
-                    docker run --name=colorscreen -p 80:80 "revanthreddydatla/colorscreen:$SHA"
+                    docker run -d --name=colorscreen -p 80:80 "revanthreddydatla/colorscreen:$SHA"
                     
         
                 
