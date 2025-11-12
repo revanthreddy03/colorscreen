@@ -49,7 +49,7 @@ jobs:
                 username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
                 key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
                 port: 22
-                script: ~/workflow_scripts/deploy.sh
+                script: ./workflow_scripts/deploy.sh
                     
         
                 
