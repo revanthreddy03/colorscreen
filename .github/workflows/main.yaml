@@ -40,6 +40,24 @@ jobs:
     steps:
         - uses: actions/checkout@v4
 
+        - name: Create remote directory
+          uses: appleboy/ssh-action@v1
+          with:
+            host: ${{ secrets.COLORSCREEN_HOST }}
+            username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
+            key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
+            script: mkdir -p ~/workflow_scripts
+
+        
+        - name: Make script executable
+          uses: appleboy/ssh-action@v1
+          with:
+            host: ${{ secrets.COLORSCREEN_HOST }}
+            username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
+            key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
+            script: chmod +x ~/workflow_scripts/deploy.sh
+
+
         - name: Upload deploy script
           uses: appleboy/scp-action@v0.1.7
           with:
