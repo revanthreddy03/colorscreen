@@ -32,7 +32,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: revanthreddydatla/coloscreen:${{ github.sha }}
+          tags: revanthreddydatla/colorscreen:${{ github.sha }}
         
   deploy:
     runs-on: ubuntu-latest
@@ -49,6 +49,7 @@ jobs:
                 key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
                 port: 22
                 script: |
+                    docker pull "revanthreddydatla/colorscreen:$SHA"
                     docker stop colorscreen 2>/dev/null || true
                     docker rm colorscreen 2>/dev/null || true
                     docker run --name=colorscreen -p 80:80 "revanthreddydatla/colorscreen:$SHA"
