@@ -1,6 +1,9 @@
 #!/bin/bash
 SHA=$1
+git clone "https://github.com/revanthreddy03/colorscreen.git"
+cd colorscreen
 container_running=$(docker ps -q -f name=colorscreen_blue || docker ps -q -f name=colorscreen_green)
+
 active_flag="blue"
 old_flag=""
 

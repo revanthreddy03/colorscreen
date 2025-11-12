@@ -38,55 +38,6 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v4
-
-        - name: Create remote directory
-          uses: appleboy/ssh-action@v1
-          with:
-            host: ${{ secrets.COLORSCREEN_HOST }}
-            username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
-            key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
-            script: mkdir -p ~/workflow_scripts
-
-        
-        - name: Make script executable
-          uses: appleboy/ssh-action@v1
-          with:
-            host: ${{ secrets.COLORSCREEN_HOST }}
-            username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
-            key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
-            script: chmod +x ~/workflow_scripts/deploy.sh
-
-
-        - name: Upload deploy script
-          uses: appleboy/scp-action@v0.1.7
-          with:
-            host: ${{ secrets.COLORSCREEN_HOST }}
-            username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
-            key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
-            source: "workflow_scripts/deploy.sh"
-            target: "~/workflow_scripts/"
-        - name: test
-          run: | 
-            ls
-            ls -l
-
-        - 
-            name: Execute remote SSH commands using password
-            uses: appleboy/ssh-action@v1
-            env:
-                SHA: ${{ github.sha }}
-            with:
-                envs: SHA
-                host: ${{ secrets.COLORSCREEN_HOST }}
-                username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
-                key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
-                port: 22
-                script: |
-                    ls
-                    ls -l
-                    ls ~/workflow_scripts/
-
         - 
             name: Execute remote SSH commands using password
             uses: appleboy/ssh-action@v1
