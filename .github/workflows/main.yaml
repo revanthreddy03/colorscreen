@@ -39,6 +39,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - uses: actions/checkout@v4
+
+        - name: Upload deploy script
+          uses: appleboy/scp-action@v0.1.7
+          with:
+            host: ${{ secrets.COLORSCREEN_HOST }}
+            username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
+            key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
+            source: "workflow_scripts/deploy.sh"
+            target: "~/workflow_scripts/"
+
         - 
             name: Execute remote SSH commands using password
             uses: appleboy/ssh-action@v1
@@ -50,7 +60,7 @@ jobs:
                 username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
                 key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
                 port: 22
-                script: ./workflow_scripts/deploy.sh
+                script: ~/workflow_scripts/deploy.sh
                     
         
                 
