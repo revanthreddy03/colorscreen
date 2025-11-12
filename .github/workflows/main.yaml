@@ -35,7 +35,7 @@ jobs:
           tags: revanthreddydatla/coloscreen:${{ github.sha }}
         
   deploy:
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
         - 
             name: Execute remote SSH commands using password
