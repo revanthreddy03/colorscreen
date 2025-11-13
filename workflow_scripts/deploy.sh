@@ -17,6 +17,7 @@ if [ -n "$container_running" ]; then
 
     # Determine next port
     if [ -n "$blue_container_config" ]; then
+        echo "blue_container_config: $blue_container_config"
         old_flag="blue"
         active_flag="green"
     else
