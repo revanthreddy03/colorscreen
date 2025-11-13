@@ -1,8 +1,8 @@
 #!/bin/bash
 SHA=$1
 container_running=$(docker ps -q -f name=colorscreen_blue || docker ps -q -f name=colorscreen_green)
-
-active_flag="blue"
+echo "is container_running: $container_running"
+active_flag=""
 old_flag=""
 
 if [ -n "$container_running" ]; then
