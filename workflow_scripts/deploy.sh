@@ -33,7 +33,7 @@ if [ -n "$container_running" ]; then
     docker rm "colorscreen_${old_flag}" || true
 else
     # First deployment
-    docker network create colorscreen-network
+    docker network create colorscreen-network || true
     docker run -d --name=colorscreen_blue --network colorscreen-network "revanthreddydatla/colorscreen:$SHA"
     docker run -d --name=nginx --network colorscreen-network -p 80:80 revanthreddydatla/nginx
 fi
