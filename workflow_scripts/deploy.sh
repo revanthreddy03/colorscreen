@@ -9,7 +9,7 @@ if [ -n "$container_running" ]; then
     # Pull new image
     docker pull "revanthreddydatla/colorscreen:$SHA"
 
-    blue_container_config=$(docker exec nginx grep -q "colorscreen_blue" /etc/nginx/nginx.conf)
+    blue_container_config=$(docker exec nginx grep "colorscreen_blue" /etc/nginx/nginx.conf)
 
     # Determine next port
     if [ -n "$blue_container_config" ]; then
