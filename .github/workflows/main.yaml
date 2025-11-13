@@ -39,7 +39,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - name: Set GitHub Path
-          run: echo "$GITHUB_ACTION_PATH"
+          run: |
+            echo "$GITHUB_ACTION_PATH"
+            echo "$GITHUB_PATH"
+            printenv
         # - 
         #     name: Execute remote SSH commands using password
         #     uses: appleboy/ssh-action@v1
@@ -51,7 +54,7 @@ jobs:
         #         username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
         #         key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
         #         port: 22
-        #         script_path: workflow_scripts/deploy.sh
+        #         script_path: ../../workflow_scripts/deploy.sh
                     
         
                 
