@@ -9,8 +9,10 @@ if [ -n "$container_running" ]; then
     # Pull new image
     docker pull "revanthreddydatla/colorscreen:$SHA"
 
+    blue_container_config=$(docker exec nginx grep -q "colorscreen_blue" /etc/nginx/nginx.conf)
+
     # Determine next port
-    if docker exec nginx grep -q "colorscreen_blue" /etc/nginx/nginx.conf; then
+    if [ -n "$blue_container_config" ]; then
         old_flag="blue"
         active_flag="green"
     else
