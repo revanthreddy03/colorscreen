@@ -10,7 +10,7 @@ if [ -n "$container_running" ]; then
     docker pull "revanthreddydatla/colorscreen:$SHA"
 
     # Determine next port
-    if grep -q "colorscreen_blue" /etc/nginx/nginx.conf; then
+    if docker exec nginx grep -q "colorscreen_green" /etc/nginx/nginx.conf; then
         old_flag="blue"
         active_flag="green"
     else
@@ -22,8 +22,12 @@ if [ -n "$container_running" ]; then
     docker run -d --name="colorscreen_${active_flag}" --network colorscreen-network "revanthreddydatla/colorscreen:$SHA"
 
     # Update Nginx config to point to new port
-    sed -i "s/colorscreen_blue/colorscreen_green/" /etc/nginx/nginx.conf || true
-    sed -i "s/colorscreen_green/colorscreen_blue/" /etc/nginx/nginx.conf || true
+    colorscreen_blue_running=$(docker ps -qf name=colorscreen_blue)
+    if [ -n "$colorscreen_blue_running" ]; then
+        docker exec nginx sed -i "s/colorscreen_blue/colorscreen_green/" /etc/nginx/nginx.conf || true
+    else
+        docker exec nginx sed -i "s/colorscreen_green/colorscreen_blue/" /etc/nginx/nginx.conf || true
+    fi
 
     # Reload Nginx without downtime
     nginx -s reload
