@@ -1,7 +1,5 @@
 #!/bin/bash
 SHA=$1
-git clone "https://github.com/revanthreddy03/colorscreen.git"
-cd colorscreen
 container_running=$(docker ps -q -f name=colorscreen_blue || docker ps -q -f name=colorscreen_green)
 
 active_flag="blue"
@@ -35,7 +33,7 @@ if [ -n "$container_running" ]; then
     docker rm "colorscreen_${old_flag}" || true
 else
     # First deployment
-    sudo docker network create colorscreen-network
+    docker network create colorscreen-network
     docker run -d --name=colorscreen_blue --network colorscreen-network "revanthreddydatla/colorscreen:$SHA"
     docker run -d --name=nginx --network colorscreen-network -p 80:80 revanthreddydatla/nginx
 fi

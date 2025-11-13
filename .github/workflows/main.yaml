@@ -58,7 +58,15 @@ jobs:
                 username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
                 key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
                 port: 22
-                script_path: "workflow_scripts/deploy.sh"
+                script: |
+                    cd
+                    rm -rf colorscreen
+                    printenv
+                    git clone "https://github.com/revanthreddy03/colorscreen.git" 2>/dev/null || true
+                    cd colorscreen/workflow_scripts
+                    ./deploy.sh $SHA
+
+
                     
         
                 
