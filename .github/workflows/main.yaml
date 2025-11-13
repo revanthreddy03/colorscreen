@@ -38,18 +38,20 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-        - 
-            name: Execute remote SSH commands using password
-            uses: appleboy/ssh-action@v1
-            env:
-                SHA: ${{ github.sha }}
-            with:
-                envs: SHA
-                host: ${{ secrets.COLORSCREEN_HOST }}
-                username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
-                key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
-                port: 22
-                script_path: workflow_scripts/deploy.sh
+        - name: Set GitHub Path
+          run: echo "$GITHUB_ACTION_PATH"
+        # - 
+        #     name: Execute remote SSH commands using password
+        #     uses: appleboy/ssh-action@v1
+        #     env:
+        #         SHA: ${{ github.sha }}
+        #     with:
+        #         envs: SHA
+        #         host: ${{ secrets.COLORSCREEN_HOST }}
+        #         username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
+        #         key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
+        #         port: 22
+        #         script_path: workflow_scripts/deploy.sh
                     
         
                 
