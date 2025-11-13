@@ -10,7 +10,7 @@ if [ -n "$container_running" ]; then
     docker pull "revanthreddydatla/colorscreen:$SHA"
 
     # Determine next port
-    if docker exec nginx grep -q "colorscreen_green" /etc/nginx/nginx.conf; then
+    if docker exec nginx grep -q "colorscreen_blue" /etc/nginx/nginx.conf; then
         old_flag="blue"
         active_flag="green"
     else
@@ -30,7 +30,7 @@ if [ -n "$container_running" ]; then
     fi
 
     # Reload Nginx without downtime
-    nginx -s reload
+    docker exec nginx nginx -s reload
 
     # Remove old container after traffic switches
     docker stop "colorscreen_${old_flag}" || true
