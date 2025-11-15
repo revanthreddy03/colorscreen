@@ -1,0 +1,14 @@
+A simple frontend app which prints a colorscreen
+Used this app to demonstrate 
+1. CICD of colorscreen container by stopping, removing the previous running container and deploying new
+    container with latest image from docker hub
+    CHECKOUT COMMIT 50c1244b8175a5d6404bf8fe61b82bb4631a0e41
+2. Making the old CICD into zero downtime CICD by implementing nginx container as reverse proxy
+    and employing BLUE-GREEN DEPLOYMENT STRATEGY (run a new container with alternate name(blue/green), then 
+    update nginx configuration to point to new container and reload.)
+    CHECKOUT COMMIT bff14b3548e81be4402124942599fe7f8b979c6f
+3. Transitioned from single host single container to multiple host, multiple containers(replicas) employing
+    docker swarm mode which inbuilt comes with docker engine, also implemented zero downtime deployment
+    using ROLLING UPDATE DEPLOYMENT STRATEGY
+    CHECKOUT COMMIT 32cb0edf560c31c53ee8e4e37b77aa13ebdb1484
+4. Moving colorscreen to kubernetes environment
