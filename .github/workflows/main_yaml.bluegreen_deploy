@@ -1,5 +1,5 @@
-# cicd zero downtime deployment on docker swarm
-# used rolling update strategy
+# cicd zero downtime deployment on a single ec2 machine service single docker container
+# used blue green deployment strategy
 name: CICD
 
 on:
@@ -56,17 +56,24 @@ jobs:
                 SHA: ${{ github.sha }}
             with:
                 envs: SHA
-                host: ${{ secrets.COLORSCREEN_SWARM_MANAGER_HOST_ADDR }}
+                host: ${{ secrets.COLORSCREEN_HOST }}
                 username: ${{ secrets.COLORSCREEN_HOST_USERNAME }}
                 key: ${{ secrets.COLORSCREEN_HOST_PRIV_KEY }}
                 port: 22
                 script: |
-                    # cd
-                    # rm -rf colorscreen
-                    # printenv
-                    # git clone "https://github.com/revanthreddy03/colorscreen.git" 2>/dev/null || true
-                    docker service update --update-parallelism 1 --update-order start-first --update-delay 10s --image revanthreddydatla/colorscreen:$SHA colorscreen-stack_colorscreen 
+                    cd
+                    rm -rf colorscreen
+                    printenv
+                    git clone "https://github.com/revanthreddy03/colorscreen.git" 2>/dev/null || true
+                    cd colorscreen/workflow_scripts
+                    ./deploy.sh $SHA
 
 
                     
+        
+                
+
+        
+    
+    
     
