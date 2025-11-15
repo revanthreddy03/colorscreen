@@ -98,6 +98,7 @@ resource "aws_key_pair" "deployer" {
 }
 
 resource "aws_instance" "example" {
+  count = 2
   ami                         = data.aws_ami.amzn-linux-2023-ami.id
   instance_type               = "t2.micro"
   subnet_id                   = module.vpc.public_subnets[0]
@@ -108,10 +109,11 @@ resource "aws_instance" "example" {
 
   tags = {
     Project = local.name
+    Name = "doc-${count.index}"
   }
 }
 
 
 output "ec2_pip" {
-  value = resource.aws_instance.example.public_ip
+  value = [for instance in resource.aws_instance.example: instance.public_ip]
 }

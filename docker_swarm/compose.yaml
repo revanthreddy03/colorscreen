@@ -1,0 +1,13 @@
+# lets do the research of docker swarm
+# you can initialise docker swarm -> the node becomes manager
+      # docker swarm init --advertise-addr <interface or ip>
+# you can join demaining nodes into the swarm
+      # docker swarm join --token <token> <manager advertised ip>:2377
+      # you can get token using docker swarm join-token -q worker
+# you need to declare services in a yaml file
+services:
+  colorscreen: 
+    image: revanthreddydatla/colorscreen
+    ports:
+      - "80:80"
+# using swarm commands create a stack
